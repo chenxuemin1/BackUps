@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xiaobaige.Dao.query.BuyDao">
+    
+    <insert id="add">
+        INSERT INTO db_buy_table(user_id,buy_time,express_number,logistics,weight_confirm,remarks)
+                         VALUES (#{user_id},now(),#{express_number},#{logistics},#{weight_confirm},#{ramarks})
+
+
+    </insert>
+
+    <delete id="del">
+        DELETE FROM db_buy_table WHERE express_number=#{express_number}
+    </delete>
+
+    <update id="edit">
+        UPDATE db_buy_table
+        SET user_id=#{user_id},
+            buy_time=#{buy_time},
+            logistics=#{logistics},
+            weight_confirm=#{weight_confirm},
+            remarks=#{remarks}
+        WHERE express_number=#{express_nuymber}
+    </update>
+    
+    <select id="findall" resultType="xiaobaige.Pojo.query.Buytable" >
+        SELECT user_id,buy_time,express_number,logistics,weight_confirm,remarks FROM db_Buy_table
+    </select>
+
+    <select id="sel" resultType="xiaobaige.Pojo.query.Buytable" >
+        SELECT user_id,buy_time,express_number,logistics,weight_confirm,remarks FROM db_Buy_table WHERE user_id=#{user_id}
+    </select>
+
+</mapper>

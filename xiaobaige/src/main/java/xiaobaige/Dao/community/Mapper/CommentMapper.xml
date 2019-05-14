@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xiaobaige.Dao.community.CommentDao">
+    <insert id="add" parameterType="xiaobaige.Pojo.community.Commenttable" useGeneratedKeys="true" keyProperty="id">
+        insert into db_comment_table (comment_message,comment_man_openid,comment_time,be_comment_id,new_state)
+        VALUES (#{comment_message},#{comment_man_openid},now(),#{be_comment_id},1)
+
+    </insert>
+
+    <update id="del">
+        UPDATE db_comment_table SET
+        new_state=0
+        WHERE id=#{id}
+
+    </update>
+
+    <update id="edit">
+        UPDATE db_comment_table SET
+        commment_message=#{commment_message},
+        comment_man_id=#{comment_man_id},
+        comment_time=#{comment_time},
+        be_comment_id=#{be_comment_id},
+        new_state=#{new_state}
+        WHERE id=#{id}
+
+    </update>
+
+    <select id="findall">
+        SELECT comment_message,comment_man_id,comment_time,be_comment_id,new_state
+        FROM db_comment_table
+
+    </select>
+
+    <select id="sel">
+        SELECT comment_message,comment_man_id,comment_time,be_comment_id,new_state
+        FROM db_comment_table
+        WHERE be_comment_id
+
+    </select>
+
+    <!--评论列表-->
+    <select id="pl_list" resultType="xiaobaige.Pojo.community.Commenttable">
+
+      SELECT u.user_nickname comment_nickname, u.user_img user_img, c.id id , c.comment_message comment_message,
+             c.comment_man_openid comment_man_openid, c.comment_time comment_time, c.be_comment_id be_comment_id
+      FROM db_comment_table c, db_user_table u
+      WHERE c.comment_man_openid=#{openid}
+      AND u.openid=c.comment_man_openid
+      AND c.new_state=1
+      AND TO_DAYS(c.comment_time) = TO_DAYS(NOW())
+
+    </select>
+
+    <!--删除评论-->
+    <update id="del_pl">
+        UPDATE db_comment_table
+        SET new_state=0
+        WHERE id=#{id}
+
+    </update>
+
+    <!--当天被评论的数量-->
+    <select id="pl_number" resultType="int">
+
+      SELECT count(*) pl_number
+      FROM
+        (SELECT c.comment_message cm,c.comment_man_openid co,c.comment_time ct,c.be_comment_id ci,c.new_state cs FROM
+          (SELECT id FROM db_say_table WHERE public_man_openid=#{openid}) s
+        LEFT JOIN db_comment_table c ON s.id=c.be_comment_id) sc
+      LEFT JOIN db_user_table u ON sc.co=u.openid WHERE TO_DAYS(sc.ct) = TO_DAYS(NOW()) AND sc.cs=1
+
+    </select>
+
+    <!--根据说说id查该说说的所有评论-->
+    <select id="sel_comment" resultType="xiaobaige.Pojo.community.Commenttable">
+
+      SELECT ut.user_nickname comment_nickname,ut.user_img user_img,
+	      sc.id id,sc.comment_message comment_message,sc.comment_time comment_time,sc.comment_man_openid comment_man_openid
+      FROM db_user_table ut,
+	    (SELECT id,comment_message ,comment_time,comment_man_openid
+	    FROM db_comment_table
+	    WHERE be_comment_id=#{id} AND new_state=1) sc
+      WHERE ut.openid=sc.comment_man_openid order BY sc.comment_time ASC
+
+    </select>
+
+    <update id="edit_state" >
+        UPDATE db_comment_table
+        SET new_state=0
+        WHERE id=#{id}
+
+    </update>
+
+    <!--查询自己的评论-->
+    <select id="sel_my_comment" resultType="xiaobaige.Pojo.community.Commenttable">
+        SELECT u.openid comment_man_openid,u.user_img user_img,u.user_nickname comment_nickname,
+               c.id id,c.comment_message comment_message,c.comment_time comment_time
+        FROM db_comment_table c,db_user_table u
+        WHERE c.be_comment_id=#{be_comment_id} AND c.comment_man_openid=#{comment_man_openid} AND c.comment_man_openid=u.openid
+        order by c.comment_time DESC limit 0,1
+
+    </select>
+
+</mapper>

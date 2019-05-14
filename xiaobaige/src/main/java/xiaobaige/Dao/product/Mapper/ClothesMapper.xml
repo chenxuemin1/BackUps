@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xiaobaige.Dao.product.ClothesDao">
+    <insert id="add">
+        INSERT INTO db_clothes_table(productid,productname,clothestype,clothesimg,price,remarks)
+        VALUES (#{productid},#{productname},#{clothestype},#{clothesimg},#{price},#{ramarks})
+
+
+    </insert>
+
+    <delete id="del">
+        DELETE FROM db_clothes_table WHERE id=#{id}
+    </delete>
+
+    <update id="edit">
+        UPDATE db_clothes_table
+        SET productid=#{productid},
+            productname=#{name},
+            clothestype=#{clothestype},
+            clothesimg=#{clothesimg},
+            price=#{price}
+        WHERE express_number=#{express_nuymber}
+    </update>
+
+    <select id="findall" resultType="xiaobaige.Pojo.product.Clothestable" >
+        SELECT productid,productname,clothestype,clothesimg,price,remarks FROM db_clothes_table
+    </select>
+
+    <select id="sel" resultType="xiaobaige.Pojo.product.Clothestable" >
+        SELECT productid,productname,clothestype,clothesimg,price,remarks FROM db_clothes_table WHERE id=#{id}
+    </select>
+</mapper>

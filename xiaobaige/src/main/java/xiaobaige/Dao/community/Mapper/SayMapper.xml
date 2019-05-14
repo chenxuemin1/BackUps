@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xiaobaige.Dao.community.SayDao">
+    <insert id="add" parameterType="xiaobaige.Pojo.community.Saytable" useGeneratedKeys="true" keyProperty="id">
+        insert into db_say_table (say_message,public_man_openid,public_time,new_state,photo_loca1,photo_loca2,photo_loca3)
+        VALUES (#{say_message},#{public_man_openid},now(),1,#{photo_loca1},#{photo_loca2},#{photo_loca3})
+    </insert>
+
+    <update id="del">
+        UPDATE db_say_table SET
+        new_state=0
+        WHERE id=#{id}
+
+    </update>
+
+    <update id="edit">
+        UPDATE db_say_table SET
+        say_message=#{say_message},
+        public_man_id=#{public_man_id},
+        public_time=#{public_time},
+        new_state=#{new_state}
+        WHERE id=#{id}
+
+    </update>
+
+    <select id="findall" resultType="xiaobaige.Pojo.community.Saytable">
+       SELECT su.id id,su.man_nickname man_nickname,su.user_img user_img,
+       su.say_message say_message,su.public_man_openid public_man_openid ,
+       su.public_time public_time,su.new_state new_state,
+       su.photo_loca1 photo_loca1,su.photo_loca2 photo_loca2,su.photo_loca3 photo_loca3,
+       su.up_number up_number,cs.pl_number pl_number FROM
+       (SELECT s.id id,u.user_nickname man_nickname,u.user_img user_img,
+       s.say_message,s.public_man_openid,s.public_time,s.new_state,
+       s.photo_loca1,s.photo_loca2,s.photo_loca3,s.up_number
+       FROM db_say_table s,db_user_table u
+       WHERE u.openid=s.public_man_openid AND s.new_state=1
+       ORDER BY public_time DESC) su
+       LEFT JOIN
+       (SELECT s.id id,s.public_man_openid public_man_openid,COUNT(*) pl_number
+       FROM db_comment_table c,db_say_table s WHERE c.be_comment_id=s.id AND c.new_state=1 GROUP BY be_comment_id) cs
+       ON su.id=cs.id
+       ORDER BY su.public_time DESC
+    </select>
+
+    <select id="sel" resultType="xiaobaige.Pojo.community.Saytable">
+        SELECT u.user_nickname,u.user_img,s.say_message,s.public_man_openid,s.public_time,s.new_state FROM
+        (SELECT say_message,public_man_openid,public_time,new_state
+        FROM db_say_table
+        WHERE public_man_openid=#{public_man_openid} and new_state=1) s left join db_user_table u on s.public_man_openid=u.openid
+        ORDER BY s.public_time DESC
+    </select>
+
+    <!--我的关注-->
+    <select id="my_gz" resultType="xiaobaige.Pojo.community.Saytable">
+        SELECT su.id id,su.man_nickname man_nickname,su.user_img user_img,
+       su.say_message say_message,su.public_man_openid public_man_openid ,
+       su.public_time public_time,su.new_state new_state,
+       su.photo_loca1 photo_loca1,su.photo_loca2 photo_loca2,su.photo_loca3 photo_loca3,
+       su.up_number up_number,cs.pl_number pl_number FROM
+       (SELECT s.id id,u.user_nickname man_nickname,u.user_img user_img,
+       s.say_message,s.public_man_openid,s.public_time,s.new_state,
+       s.photo_loca1,s.photo_loca2,s.photo_loca3,s.up_number
+       FROM db_say_table s,db_user_table u
+       WHERE u.openid IN (SELECT f.be_follow_user_openid
+                                    FROM db_user_table u ,db_follow_table f
+                                    WHERE u.openid=f.follow_user_openid
+                                    AND u.openid=#{openid}
+                                   AND new_state=1) AND
+          u.openid=s.public_man_openid AND s.new_state=1
+       ORDER BY s.public_time DESC) su
+       LEFT JOIN
+       (SELECT s.id id,s.public_man_openid public_man_openid,COUNT(*) pl_number
+       FROM db_comment_table c,db_say_table s WHERE c.be_comment_id=s.id AND c.new_state=1 GROUP BY be_comment_id) cs
+       ON su.id=cs.id
+       ORDER BY su.public_time DESC
+
+    </select>
+
+    <!--我的发布-->
+    <select id="my_fb" resultType="xiaobaige.Pojo.community.Saytable">
+
+            SELECT su.id id,su.man_nickname man_nickname,su.user_img user_img,
+                   su.say_message say_message,su.public_man_openid public_man_openid ,
+                   su.public_time public_time,su.new_state new_state,
+                   su.photo_loca1 photo_loca1,su.photo_loca2 photo_loca2,su.photo_loca3 photo_loca3,
+                   su.up_number up_number,cs.pl_number pl_number FROM
+                   (SELECT s.id id,u.user_nickname man_nickname,u.user_img user_img,
+                   s.say_message,s.public_man_openid,s.public_time,s.new_state,
+                   s.photo_loca1,s.photo_loca2,s.photo_loca3,s.up_number
+                   FROM db_say_table s,db_user_table u
+                   WHERE u.openid=#{openid} AND u.openid=s.public_man_openid AND s.new_state=1
+                   ORDER BY public_time DESC) su
+                   LEFT JOIN
+                   (SELECT s.id id,s.public_man_openid public_man_openid,COUNT(*) pl_number
+                   FROM db_comment_table c,db_say_table s WHERE c.be_comment_id=s.id AND c.new_state=1 GROUP BY be_comment_id) cs
+                   ON su.id=cs.id
+                   ORDER BY su.public_time DESC
+    </select>
+
+    <!--点赞增加-->
+    <update id="up" keyColumn="id">
+        UPDATE db_say_table SET up_number=+1 WHERE id=#{say_id}
+    </update>
+
+    <!--点赞次数-->
+    <select id="up_number" resultType="int">
+        SELECT up_number FROM db_say_table WHERE id=#{say_id}
+    </select>
+
+    <!--根据说说id查该说说的所有评论-->
+    <select id="sel_comment" resultType="xiaobaige.Pojo.community.Commenttable">
+        SELECT c.id id,c.comment_man_openid comment_man_openid,c.comment_message comment_message,
+               c.comment_time comment_time,c.new_state new_state,
+               u.user_nickname,u.user_img
+        FROM db_comment_table c,db_user_table u
+        WHERE be_comment_id=#{id} AND c.comment_man_openid=u.openid AND new_state=1 ORDER BY c.comment_time DESC
+    </select>
+
+    <!--根据说说id查询说说-->
+    <select id="sel_say" resultType="xiaobaige.Pojo.community.Saytable">
+        SELECT s.id id,u.user_nickname user_nicknaem,u.user_img user_img,s.public_man_openid public_man_openid,
+               s.say_message say_message,
+               s.photo_loca1 photo_loca1,
+               s.photo_loca2 photo_loca2,
+               s.photo_loca3 photo_loca3,
+               s.public_time public_time
+        FROM db_say_table s,db_user_table u WHERE s.id=#{id} AND s.new_state=1 AND s.public_man_openid=u.openid
+    </select>
+
+    <!--点赞者的头像-->
+    <select id="up_touxiang" resultType="xiaobaige.Pojo.system.Usertable">
+        SELECT u.user_nickname user_nickname,u.user_img user_img
+        FROM db_say_table s,db_up_table up,db_user_table u
+        WHERE s.id=#{id} AND up.be_up_id=s.id AND u.openid=up.up_man_openid
+    </select>
+
+    <!--根据用户提供的信息查询关注的好友的说说-->
+    <select id="gz_fb_query" resultType="xiaobaige.Pojo.community.Saytable">
+
+        SELECT say_users.* FROM
+            (SELECT users.user_nickname user_nickname,users.user_img user_img,say.*
+              FROM
+              (SELECT say_message,public_man_openid,public_time,photo_loca1,photo_loca2,photo_loca3,up_number
+                FROM db_say_table) say LEFT JOIN
+            db_user_table users ON users.openid=say.public_man_openid) say_users
+        WHERE 1=1
+        <if test="message!=null">
+            AND say_users.user_nickname LIKE concat('%', #{message}, '%')
+            OR say_users.say_message LIKE concat('%', #{message}, '%');
+        </if>
+
+    </select>
+
+    <select id="my_fb_query" resultType="xiaobaige.Pojo.community.Saytable">
+
+        SELECT say_users.* FROM
+        (SELECT users.user_nickname user_nickname,users.user_img user_img,say.*
+        FROM
+        (SELECT say_message,public_man_openid,public_time,photo_loca1,photo_loca2,photo_loca3,up_number
+        FROM db_say_table WHERE public_man_openid=#{openid}) say LEFT JOIN
+        db_user_table users ON users.openid=say.public_man_openid) say_users
+        WHERE 1=1
+        <if test="message!=null">
+            AND say_users.user_nickname LIKE concat('%', #{message}, '%')
+            OR say_users.say_message LIKE concat('%', #{message}, '%');
+        </if>
+
+    </select>
+</mapper>

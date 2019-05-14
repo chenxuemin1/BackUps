@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xiaobaige.Dao.stock.ClearDao">
+
+    <insert id="add">
+        INSERT INTO db_clear_table (clothes_type,weight,buyer,buyer_phone,buy_time,buy_price,remarks)
+                            VALUES (#{clothes_type},#{weight},#{buyer},
+                                    #{buyer_phone},#{buy_time},#{buy_price},#{remarks})
+    </insert>
+
+    <delete id="del">
+        DELETE FROM db_claer_table WHERE express_number=#{express_number}
+
+    </delete>
+
+    <update id="edit">
+        UPDATE db_claer_table
+        SET clothes_type=#{clothes_type}
+            weight=#{weight}
+            buyer_phone=#{buyer_phone}
+            buy_time=#{buy_time}
+            buy_price=#{buy_price}
+            remarks=#{remarks}
+        WHERE buyer=#{buyer}
+    </update>
+
+    <select id="findall" resultType="xiaobaige.Pojo.stock.Cleartable">
+        SELECT clothes_type,weight,buyer,buyer_phone,buy_time,buy_price,remarks
+        FROM db_claer_table
+
+    </select>
+
+    <select id="sel" resultType="xiaobaige.Pojo.stock.Cleartable">
+        SELECT clothes_type,weight,buyer,buyer_phone,buy_time,buy_price,remarks
+        WHERE buyer=#{buyer}
+        FROM db_claer_table
+    </select>
+
+</mapper>

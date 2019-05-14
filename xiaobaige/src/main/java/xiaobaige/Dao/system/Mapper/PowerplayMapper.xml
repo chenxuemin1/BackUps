@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xiaobaige.Dao.system.PowerplayDao">
+    <insert id="add">
+        insert INTO db_power_play_table (power_id,play_id)
+             VALUES <foreach collection="playids" item="playid" separator=",">
+                    #{powerid},#{playid}
+                    </foreach>
+
+    </insert>
+
+    <delete id="del">
+        DELETE  FROM db_power_play_table WHERE power_id=#{power_id}
+
+    </delete>
+
+    <update id="edit">
+        UPDATE db_power_play_table
+           SET power_id=#{power_id},play_id=#{play_id}
+         WHERE power_id=#{power_id}
+
+    </update>
+
+    <select id="findall" resultType="xiaobaige.Pojo.system.Powerplaytable">
+        SELECT power_id,play_id FROM db_power_play_table
+
+    </select>
+
+    <select id="sel" resultType="xiaobaige.Pojo.system.Powerplaytable">
+        SELECT power_id,play_id FROM db_power_play_table WHERE power_id=#{power_id}
+
+    </select>
+</mapper>

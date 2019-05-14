@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xiaobaige.Dao.community.UpDao">
+    <insert id="add" parameterType="xiaobaige.Pojo.community.Uptable" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO db_up_table(be_up_id,up_man_openid,up_time,new_state)
+        VALUES (#{be_up_id},#{up_man_openid},now(),1)
+
+    </insert>
+
+    <update id="del">
+        UPDATE db_up_table SET
+        new_state=0
+        WHERE be_up_id=#{be_up_id} AND up_man_id=#{up_man_id}
+
+    </update>
+
+    <update id="edit">
+        UPDATE db_up_table SET
+        be_up_id=#{be_up_id},
+        up_man_id=#{up_man_id},
+        up_time=#{up_time},
+        new_state=#{new_state}
+        WHERE id=#{id}
+
+    </update>
+
+    <select id="findall">
+        SELECT be_up_id,up_man_id,up_time,new_state FROM db_up_table
+
+    </select>
+
+    <select id="sel">
+        SELECT be_up_id,up_man_id,up_time,new_state FROM db_up_table WHERE be_up_id=#{0} AND up_man_id=#{1}
+
+    </select>
+
+    <!--查询是否已经点赞过该说说-->
+    <select id="sel_up_number" resultType="int">
+        SELECT count(*)number_up FROM db_up_table WHERE be_up_id=#{be_up_id} AND up_man_openid=#{up_man_openid}
+
+    </select>
+
+    <!--查询点赞者的头像-->
+    <select id="sel_up_img" resultType="java.lang.String">
+        SELECT user_img from db_user_table WHERE openid=#{openid}
+    </select>
+</mapper>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xiaobaige.Dao.tell.TellDao">
+
+    <select id="sel_tell" resultType="java.lang.String">
+        SELECT message from db_tell_table WHERE id=1
+
+    </select>
+</mapper>

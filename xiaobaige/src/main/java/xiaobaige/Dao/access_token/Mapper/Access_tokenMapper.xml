@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xiaobaige.Dao.access_token.Access_tokenDao">
+    <insert id="add" parameterType="xiaobaige.Pojo.access_token.Access_token" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO db_access_token_table (access_token) VALUE (#{access_token})
+
+    </insert>
+
+    <update id="edit" >
+        UPDATE db_access_token_table SET access_token=#{access_token} WHERE id=1
+    </update>
+
+    <select id="sel" resultType="xiaobaige.Pojo.access_token.Access_token">
+        SELECT access_token FROM db_access_token_table WHERE id=1
+    </select>
+</mapper>

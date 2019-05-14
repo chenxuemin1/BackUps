@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xiaobaige.Dao.system.UserDao">
+
+    <insert id="add">
+        INSERT INTO db_user_table(openid,user_telephone,user_nickname,user_img,buy_number,coupon_number,location,user_from,follow_time,grade,inviter)
+                          VALUES (#{openid},#{user_telephone},#{user_nickname},#{user_img},0,0,#{location},#{user_from},#{follow_time},0,#{inviter})
+
+
+    </insert>
+
+    <delete id="del">
+        DELETE FROM db_user_table WHERE openid=#{openid}
+    </delete>
+
+    <update id="edit">
+        UPDATE db_user_table
+        SET user_telephone=#{user_telephone},
+            user_nickname=#{user_nickname},
+            buy_number=#{buy_number},
+            coupon_number=#{coupon_number},
+            location=#{location},
+            user_from=#{user_from},
+            follow_time=#{follow_time},
+            invitation_number=#{invitation_number},
+            donation_number=#{donation_number}
+        WHERE openid=#{openid}
+    </update>
+
+    <!--更改邀请次数-->
+    <update id="edit2">
+        UPDATE db_user_table
+           SET invitation_number=+1
+         WHERE openid=#{inviter}
+    </update>
+
+    <!--更改捐赠次数-->
+    <update id="edit3">
+        UPDATE db_user_table
+        SET donation_number=+1
+        WHERE openid=#{openid}
+    </update>
+
+    <!--更改等级-->
+    <update id="edit_grade">
+        UPDATE db_user_table
+        SET grade=#{grade}
+        WHERE openid=#{openid}
+    </update>
+
+    <!--捐赠达人-->
+    <select id="findall" resultType="xiaobaige.Pojo.system.Usertable" >
+
+           SELECT r.weight,r.openid,r.user_name,r.user_img,r.user_nickname,r.invitation_number,r.donation_number,r.donation_weight
+            FROM
+            (SELECT ROUND(((grade*0.02)+(donation_weight*0.04)+(donation_number*0.04))*100) weight,
+             openid,user_name,user_nickname,user_img,invitation_number,donation_number,donation_weight
+           FROM db_user_table ORDER BY openid) r ORDER BY r.weight DESC limit 0,9
+
+--         SELECT user_name,user_telephone,
+--                user_nickname,buy_number,coupon_number,
+--                location,user_from,follow_time,invitation_number,donation_number
+--         FROM db_user_table ORDER BY donation_number DESC limit 0,9
+    </select>
+
+    <!--捐赠达人-->
+    <select id="findall2" resultType="xiaobaige.Pojo.system.Usertable">
+
+
+    </select>
+
+    <!--我的号召力-->
+    <select id="my" resultType="xiaobaige.Pojo.system.Usertable" >
+        SELECT user_name,user_telephone,user_img,
+               user_nickname,buy_number,coupon_number,
+               location,user_from,follow_time,invitation_number,donation_number,grade
+        FROM db_user_table WHERE inviter=#{openid}
+        <!--<![CDATA[-->
+        <!--SELECT user_name,user_telephone,user_img,-->
+               <!--user_nickname,buy_number,coupon_number,-->
+               <!--location,user_from,DATE_FORMAT(follow_time,'%Y-%m-%d %H:%i:%s') follow_time ,invitation_number,donation_number,grade-->
+        <!--FROM db_user_table WHERE inviter=#{openid}-->
+        <!--]]>-->
+    </select>
+
+    <!--我的-->
+    <select id="my1" resultType="xiaobaige.Pojo.system.Usertable">
+        <![CDATA[
+        SELECT u.openid openid,
+                u.user_name user_name,
+                u.user_telephone user_telephone,
+                u.user_img user_img,
+                u.user_nickname user_nickname,
+                u.buy_number buy_number,
+                c.coupon_number coupon_number,
+                u.location location,
+                u.user_from user_from,
+                u.follow_time follow_time,
+                u.invitation_number invitation_number,
+                u.donation_number donation_number,
+                u.grade grade
+         FROM
+              (SELECT openid,user_name,user_telephone,user_img,
+                      user_nickname,buy_number,location,user_from,
+                      follow_time,invitation_number,donation_number,grade
+               FROM db_user_table WHERE openid=#{openid}) u,
+                    (SELECT COUNT(*)coupon_number
+                    FROM db_coupon_table WHERE openid=#{openid} AND coupon_state=0 AND coupon_date>now()) c
+        ]]>
+    </select>
+
+    <!--我的捐赠-->
+    <select id="my_jz" resultType="xiaobaige.Pojo.product.Backclothestable">
+        SELECT sender_name,sender_phone,city_picker,minute_loca,weight,confirm_weight,donation_time,express_number,express_state FROM db_back_clothes_table WHERE openid=#{openid}
+    </select>
+
+    <!--捐赠次数-->
+    <select id="jz_number" resultType="xiaobaige.Pojo.system.Usertable">
+        SELECT donation_number FROM db_user_table WHERE openid=#{openid}
+    </select>
+
+    <!--首页达人-->
+    <select id="sel_index" resultType="xiaobaige.Pojo.system.Usertable">
+        SELECT b.openid,b.donation_weight,u.user_nickname,u.donation_number,u.invitation_number,u.donation_number,u.grade
+        FROM db_user_table u,
+        (SELECT openid,SUM(confirm_weight) donation_weight FROM db_back_clothes_table GROUP BY openid ) b
+        WHERE u.openid= b.openid ORDER BY b.donation_weight DESC ;
+    </select>
+
+    <!--等级超越人数(根据openid查询)-->
+    <select id="over_number" resultType="java.lang.String">
+        <![CDATA[
+        SELECT ROUND(uuuuu.c/fffff.c*100) over_number
+        FROM (SELECT COUNT(*) c
+              FROM (SELECT grade
+                    FROM (SELECT be_follow_user_openid fuo
+                          FROM db_follow_table WHERE follow_user_openid=#{openid}) u
+                    LEFT JOIN db_user_table uu
+                    ON u.fuo=uu.openid) uuu,
+                         (SELECT grade FROM db_user_table WHERE openid=#{openid}) dut
+              WHERE uuu.grade < dut.grade) uuuuu,
+        (SELECT COUNT(*) c FROM db_follow_table WHERE follow_user_openid=#{openid}) fffff
+        ]]>
+    </select>
+
+    <!--判断是否已经存在-->
+    <select id="sel_exist" resultType="int">
+        SELECT count(*) FROM db_user_table WHERE openid=#{openid}
+    </select>
+
+    <!--号召页面的个人信息-->
+    <select id="my2" resultType="xiaobaige.Pojo.system.Usertable">
+        SELECT user_img,user_nickname,invitation_number,grade
+        FROM db_user_table WHERE openid=#{openid}
+    </select>
+</mapper>

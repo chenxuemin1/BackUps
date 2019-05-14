@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xiaobaige.Dao.community.FollowDao">
+    <insert id="add" parameterType="xiaobaige.Pojo.community.Followtable" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO db_follow_table (be_follow_user_openid,follow_user_openid,follow_time,new_state)
+        VALUES (#{be_follow_user_openid},#{follow_user_openid},now(),1)
+
+    </insert>
+
+    <update id="del">
+        UPDATE db_follow_table SET
+        new_state=0
+        WHERE be_follow_user_openid=#{be_follow_user_openid} AND follow_user_openid=#{follow_user_openid}
+
+    </update>
+
+    <update id="edit">
+        UPDATE db_follow_table SET
+        be_follow_user_openid=#{be_follow_user_openid},
+        follow_user_openid=#{follow_user_openid},
+        follow_time=now(),
+        new_state=#{new_state}
+        WHERE id=#{id}
+
+    </update>
+
+    <select id="findall">
+        SELECT be_follow_user_id,follow_user_id,follow_time,new_state FROM db_follow_table
+
+    </select>
+
+    <select id="sel">
+        SELECT be_follow_user_id,follow_user_id,follow_time,new_state
+        FROM db_follow_table WHERE be_follow_user_id=#{be_follow_user_id}
+
+    </select>
+
+    <!--查询是否已关注-->
+    <select id="sel_gz_num" resultType="int">
+        SELECT count(*)gz_num FROM db_follow_table
+        WHERE be_follow_user_openid=#{be_follow_user_openid} AND follow_user_openid=#{follow_user_openid}
+    </select>
+
+</mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xiaobaige.Dao.product.BackclothesDao">
+    <insert id="add" parameterType="xiaobaige.Pojo.product.Backclothestable" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO db_back_clothes_table (openid,back_loca,sender_name,sender_phone,city_picker,
+                                           minute_loca,express_type,express_number,weight,back_state,remark)
+             VALUES (#{openid},#{back_loca},#{sender_name},#{sender_phone},#{city_picker},#{minute_loca},
+                     #{express_type},#{express_number},#{weight},#{back_state},#{remark})
+    </insert>
+
+    <delete id="del">
+        DELETE FROM db_back_clothes_table WHERE id=${id}
+    </delete>
+
+    <update id="edit">
+        UPDATE db_back_clothes_table
+           SET back_loca=#{backloca},
+               sender_name=#{sendername},
+               sender_phone=#{senderphone},
+               city_picker=#{citypicker},
+               minute_loca=#{minuteloca},
+               express_type=#{espresstype},
+               express_number=#{expressnumber},
+               weight=#{weight},
+               confirm_weight=#{confirmweight},
+               back_state=#{back_state},
+               remark=#{remark}
+         WHERE express_number=#{expressnumber}
+    </update>
+
+    <update id="edit2">
+        UPDATE db_back_clothes_table
+           SET express_type=#{expresstype},
+               express_number=#{espressnumber}
+               <if test="espress_number !=null and espress_number !='' ">
+         WHERE express_number=#{expressnumber}
+               </if>
+    </update>
+
+    <select id="findall" resultType="xiaobaige.Pojo.product.Backclothestable">
+        SELECT back_loca,sender_name,sender_phone,city_picker,
+               express_number,weight,confirm_weight,back_state,remark
+          FROM db_back_clothes_table
+    </select>
+
+    <select id="sel" resultType="xiaobaige.Pojo.product.Backclothestable">
+        SELECT back_loca,sender_name,sender_phone,sender_loca,minute_loca,express_type,
+               express_number,weight,confirm_weight,back_state,remark
+          FROM db_back_clothes_table
+         WHERE express_number=${express_number}
+    </select>
+
+    <!--我的捐赠-->
+    <select id="sel2" resultType="xiaobaige.Pojo.product.Backclothestable">
+        SELECT back_loca,sender_name,sender_phone,city_picker,minute_loca,weight,confirm_weight,bakc_state,donation_time
+        FROM db_back_clothes_table ORDER BY donation_time DESC WHERE openid=#{openid}
+
+    </select>
+
+    <!--快递类型-->
+    <select id="express_type" resultType="java.lang.String">
+        SELECT express_type FROM db_back_clothes_table WHERE express_number=#{express_number}
+    </select>
+
+</mapper>
