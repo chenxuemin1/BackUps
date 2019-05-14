@@ -1,0 +1,16 @@
+body{background:#fff;}
+.row{padding:10px 15px;border-top:1px solid #ddd;}
+.row_l,.tx,.text{float:left;}
+.row_l{width:78%;}
+.row_r{float:right;width:60px;height:60px;overflow:hidden;background:url(../img/pl_list_1.png) no-repeat top center ;background-size:cover;}
+.tx{width:50px;height:50px;border-radius:25px;overflow:hidden;}
+.tx img{width:100%;}
+.text{margin-left:6px;line-height:20px;width:74%;}
+.name{font-size:13px;color:#676767;}
+.content{font-size:14px;color:#676767;font-weight:bold;text-overflow:ellipsis; overflow:hidden; white-space: nowrap; }
+.bottom{font-size:12px;color:#676767;}
+.del{margin-left:10px;display: inline-block;padding:0 5px;}
+.delete_popup{width:200px;height:60px;padding:10px 15px;background:#fff;position:fixed;top:50%;left:50%;margin-left:-115px;margin-top:-50px;color:#888;font-size:13px;display: none;z-index:9998;}
+.delete_p2{position:absolute;bottom:0px;right:0px;}
+.delete_p2 span{padding:10px 15px;text-align:center;display: block;float:left;}
+.delete_p2 span:first-child{color:#ffc019;}

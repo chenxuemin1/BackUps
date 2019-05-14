@@ -1,0 +1,16 @@
+body{background:#fff;}
+#top{padding:10px 15px;background:#ffc019;}
+.back{float:left;color:#fff;}
+.back img{width:8px;display: block;}
+.send{float:right;font-size:14px;background:#fff;color:#555;padding:2px 6px;border-radius:3px;}
+#content{margin-top:10px;padding:15px;background:#fff;}
+#content textarea{width:100%;border:0;outline:0;min-height:100px;}
+.photo{margin-top:15px;}
+.photo ul li{list-style: none;float:left;width:31.33%;overflow: hidden;text-align:center;margin:0px 1%;position:relative;}
+.photo ul{overflow: hidden;}
+.photo img{height:100%;width:auto;}
+.camera{padding:10px 18px;background:#eeeeee;}
+.camera img{height:20px;display: block;}
+.camera p{float:left;margin-right:20px;overflow: hidden;position:relative;}
+.file_img{width:100%;height:100%;position:absolute;top:0;left:0;opacity:0;}
+.add_img{background:url(../img/add_img.png)no-repeat top center;background-size:100% 100%;}

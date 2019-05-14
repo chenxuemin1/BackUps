@@ -1,0 +1,70 @@
+#nav{width:100%;background:#ffc019;padding:12px 0 ;position:relative;}
+#nav ul{width:100%;}
+#nav ul li{width:20%;text-align:center;font-size:14px;color:#fff;float:left;list-style: none;}
+#nav ul li a{color:#fff;text-decoration: none;}
+#nav ul li img{width:20px;display: block;margin:0 auto;}
+#nav ul li .active{padding:1px 8px;background:#fff;color:#333;border-radius:5px;}
+.top_2{position:absolute;top:0;left:0;width:100%;display: none;}
+.top_2 input[type="text"]{width:70%;display: block;float:left;border:0;padding:5px 2%;height:34px;background:#ffdd81;text-align:center;outline:none;}
+.top_2 p{width:26%;float:right;text-align:center;height:44px;line-height:44px;background:#FFC019;}
+.top_2 p img{width:14px;display: block;margin:0 auto;position:relative;top:15px;}
+input::-webkit-input-placeholder{color:#fff;}
+input::-moz-input-placeholder{color:#fff;}
+input::-ms-input-placeholder{color:#fff;}
+input::input-placeholder{color:#fff;}
+/*#banner{padding:5px 8px 30px 8px;}*/
+.section{margin-bottom:6px;background:#fff;}
+.section_2 div{width:33.33%;float:left;text-align: center;font-size:13px;color:#505050;}
+.section_2{padding:15px 0 20px 0;}
+.s2_p1{width:36px;height:36px;border-radius:18px;background:#ffc019;margin:0 auto;}
+.s2_p1 img{display: block;height:50%;margin:0 auto;position:relative;top:25%;}
+.s2_p2{margin-top:5px;}
+.section_3{padding:15px 0;}
+.s3_title{font-size:14px;color:#ffc019;text-align:center;background:url(../img/line.png)no-repeat top center;background-size:100% 100%;padding-bottom:2px;}
+.s3_list{padding:0 15px 0 20px;}
+.s3_row{padding:10px 0;}
+.s3_span1,.s3_text{float:left;}
+.s3_span1{display: block;padding:1px 4px;color:#fff;font-size:12px;background:#ffc019;border-radius:8px;margin-right:5px;}
+.s3_time{float:right;font-size:12px;line-height:21px;color:#505050;}
+.s3_text{font-size:13px;width:60%;text-overflow:ellipsis; overflow:hidden; white-space: nowrap; line-height:20px;color:#505050;}
+.out{float:right;font-size:12px;color:#ffc019;padding:10px 15px 0 0;}
+.s4_box{padding:10px 10px 0px 10px;}
+.person{width:49%;font-size:12px;color:#505050;margin-bottom:5px;}
+.person_l{float:left;}
+.person_r{float:right;}
+.card{border:1px solid #ddd;border-radius:6px;padding:15px 5px;}
+.ranking{text-align:center;margin-top:5px;color:#FFC019;}
+.photo{float:left;width:30%;text-align: center;}
+.box{width:40px;height:40px;margin:0 auto;position:relative;}
+.box_1{width:40px;height:40px;overflow: hidden;border-radius:20px;}
+.photo img{width:40px;display: block;margin:0 auto;}
+.box .grade{position:absolute;left:0;bottom:-8px;}
+.name{color:#333;margin-top:10px;text-overflow:ellipsis; overflow:hidden; white-space: nowrap; }
+.grade{color:#999;}
+.card_data{float:right;text-align:right;line-height:24px;}
+.s5_box{padding:0 10px;margin-top:20px;}
+.s5_box div{float:left;border:1px solid #c8c6c6;border-radius:3px;padding-bottom:10px;}
+.s5_1{width:30%;}
+.s5_2{width:38%;position:relative;top:-5px;}
+.s5_1_title{font-size:15px;text-align:center;background:#d2d1d1;color:#fff;padding:5px  0;}
+.s5_2_title{font-size:18px;text-align:center;background:#c8c6c6;color:#fff;padding:8px  0;}
+.s5_1_text{width:90%;font-size:12px;text-align: justify;margin:0 auto;}
+.s5_2_text{width:90%;font-size:12px;text-align: justify;margin:0 auto;}
+.s5_1 img,.s5_2 img{display: block;width:50%;margin:0 auto;margin-top:10px;margin-bottom:10px;}
+.s6_row{margin-top:15px;}
+.s6_row div{float:left;}
+.s6_l{width:26%;height:100%;}
+.s6_r{width:70%;padding-right:4%;}
+.s6_p1{font-size:14px;}
+.s6_p2{font-size:12px;margin-top:6px;}
+.s6_l img{width:50px;display: block;margin:0 auto;position:relative;top:50%;margin-top:-25px;}
+#dx{text-align:center;font-size:12px;color:#ccc;}
+/*轮播图*/
+/**{margin:0;padding:0;}
+.swiper-container{overflow:hidden;}
+.swiper-container img{width:100%;display: block;}
+.swiper-pagination-bullet{width:20px;height:2px;border-radius:5px;margin-left:5px;}
+.swiper-pagination-bullet-active{background:#ffc019;width:30px;}
+.swiper-button-next,.swiper-button-prev{width:20px;height:20px;margin-top:-10px;background:#c5c78b;color:#fff;line-height:17px;text-align:center;border-radius:10px;}
+.swiper-button-next, .swiper-button-prev{background-size:100% auto;}
+.swiper-pagination{width:28%;left:36%;}*/

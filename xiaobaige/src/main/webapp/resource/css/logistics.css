@@ -1,0 +1,24 @@
+body{background:#fff;padding:0;}
+.top{padding:20px 4%;color:#fff;background:#FFC019;}
+.top_l{float:left;font-size:12px;}
+.top_l div{float:left;}
+.top_r{float:right;font-size:14px;}
+.top_img{padding-top:6px;margin-right:10px;}
+.top_img img{width:40px;}
+.site{padding:20px 25px 20px 30px;}
+.site_img{width:15%;text-align:center;float:left;padding-top:7px;}
+.site_img img{width:20px;}
+.site_text{width:85%;float:right;font-size:14px;color:#FFC019;}
+.logistics{margin-top:10px;}
+.row{height:90px;padding:0 10px;color:#676767;}
+.end{color:#FFC019;}
+.row div{float:left;}
+.time{width:16%;text-align: right;}
+.icon{width:14%;height:100%;position:relative;}
+.row_text{width:70%;}
+.time_p1,.row_text_p1{font-size:16px;}
+.time_p2{font-size:12px;}
+.row_text_p2{font-size:14px;margin-top:5px;}
+.icon_1{width:20px;height:20px;border-radius:10px;background:#ccc;margin:0 auto;}
+.icon_2{width:2px;height:100%;background:#ccc;position:absolute;left:50%;top:20px;margin-left:-1px;}
+.end .icon_1{background:#FFC019;}

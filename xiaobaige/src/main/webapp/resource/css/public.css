@@ -1,0 +1,43 @@
+body{font-family:"微软雅黑";background:#f1f1f1;padding-bottom:60px;}
+.clearfix:after{content:'';clear:both;display: block;}
+*{margin:0;padding:0;}
+a,a:hover,a:active,a:visited,a:link,a:focus{
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
+    outline:none;
+    background: none;
+    text-decoration: none;
+}
+input[type="button"], input[type="submit"], input[type="reset"] {
+
+-webkit-appearance: none;
+
+}
+textarea {  -webkit-appearance: none;}
+textarea::-webkit-input-placeholder{color:#ccc;}
+textarea::-moz-input-placeholder{color:#ccc;}
+textarea::-ms-input-placeholder{color:#ccc;}
+textarea::input-placeholder{color:#ccc;}
+
+
+.shade{width:100%;height:100%;position:fixed;top:0;left:0;background:#555;opacity: 0.6;z-index:9990;display: none;}
+.delete_popup,.remind{width:200px;height:60px;padding:10px 15px;background:#fff;position:fixed;top:50%;left:50%;margin-left:-115px;margin-top:-50px;color:#888;font-size:13px;display: none;z-index:9998;border-radius:5px;}
+.delete_p2{position:absolute;bottom:0px;right:0px;}
+.delete_p2 span{padding:10px 15px;text-align:center;display: block;float:left;}
+.delete_p2 span:first-child{color:#ffc019;}
+.remind{text-align:center;}
+.remind_1{border-bottom:1px solid #ddd;line-height:36px;}
+.remind_2{line-height:33px;color:green;}
+/*空白页*/
+#null{background:#ddd;position:fixed;width:100%;height:100%;top:0;left:0;z-index:-1;display: none;}
+#null_box{width:70%;height:300px;position:absolute;top:0;left:0;bottom:0;right:0;margin:auto;text-align: center;font-size:14px;color:#555;}
+#null_box p{margin-top:10px;}
+#null_box img{width:80%;}
+/*轮播图*/
+.swiper-container{overflow:hidden;}
+.swiper-container img{width:100%;display: block;}
+.swiper-pagination-bullet{width:8px;height:8px;border-radius:4px;margin-left:5px;}
+.swiper-pagination-bullet-active{background:#fff;}
+.swiper-button-next,.swiper-button-prev{width:20px;height:20px;margin-top:-10px;background:#c5c78b;color:#fff;line-height:17px;text-align:center;border-radius:10px;}
+.swiper-button-next, .swiper-button-prev{background-size:100% auto;}
+.swiper-pagination{width:28%;left:36%;}

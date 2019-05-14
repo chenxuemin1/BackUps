@@ -1,0 +1,8 @@
+body{background:#fff;padding-bottom:20px;}
+.row{padding:12px 15px;border-bottom:1px solid #ddd;font-size:14px;color:#676767;}
+.title{margin-top:6px;}
+.text span{color:#fdc108;}
+.time{font-size:12px;}
+.time_1,.time_2{float:left;margin-right:10px;}
+.del{float:right;display: block;padding:2px 5px;}
+.del img{width:14px;display: block;}

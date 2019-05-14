@@ -1,0 +1,9 @@
+body{padding-bottom:170px;}
+.section{margin-bottom:6px;background:#fff;color:#676767;}
+.title{font-size:15px;padding:10px 15px;}
+.text{font-size:14px;line-height:30px;padding:15px;display: none;text-align:justify;}
+.title img{display: block;float:right;position:relative;}
+.title_right{width:5px;top:4px;}
+.title_bottom{width:16px;top:8px;}
+.foot_banner{position:fixed;left:0;bottom:0;}
+.foot_banner img{width:100%;}
