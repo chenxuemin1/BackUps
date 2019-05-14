@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	<!-- 设置spring组件扫描的包范围，用于将添加了spring注解的类纳入spring容器管理 -->
+	<context:component-scan base-package="xiaobaige.*">
+		<!-- 必须配置 exclude-filter 否则  @Controller 注解的类会被 spring 和 springMVC 分别实例化一次 -->
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+
+	<!-- 支持注解 -->
+	<context:annotation-config />
+
+	<!-- 添加事务的注解方式支持 -->
+	<tx:annotation-driven/>
+	<!-- 将jdbc.properties配置文件纳入spring -->
+	<!--ignore-unresolvable为true表示可配置多个文件-->
+	<context:property-placeholder location="classpath:jdbc.properties" ignore-unresolvable="true"/>
+	<context:property-placeholder location="classpath:system.properties" ignore-unresolvable="true"/>
+	
+	<!-- 使用import标签引入其他配置文件 其中包含数据源、事务管理-->
+	<import resource="spring-mybatis.xml"/>
+
+	<!--引入配置属性文件 -->
+	<context:property-placeholder location="classpath:config.properties" />
+	<!-- redis -->
+	<!-- jedis 配置 -->
+	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig" >
+		<property name="maxIdle" value="${redis.maxIdle}" />
+		<property name="maxWaitMillis" value="${redis.maxWait}" />
+		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
+	</bean >
+	<!-- redis服务器中心 -->
+	<bean id="connectionFactory"  class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" >
+		<property name="poolConfig" ref="poolConfig" />
+		<property name="port" value="${redis.port}" />
+		<property name="hostName" value="${redis.host}" />
+		<!--<property name="password" value="${redis.password}" />-->
+		<property name="timeout" value="${redis.timeout}" ></property>
+	</bean >
+
+	<!--<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">-->
+		<!--<property name="connectionFactory"   ref="connectionFactory" />-->
+	<!--</bean>-->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" >
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="keySerializer" >
+			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+		</property>
+		<!-- <property name="valueSerializer" >
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+        </property> -->
+	</bean >
+
+	<bean id="redisUtil" class="xiaobaige.Util.RedisUtil" >
+		<property name="redisTemplate" ref="redisTemplate" />
+	</bean >
+	
+</beans>
