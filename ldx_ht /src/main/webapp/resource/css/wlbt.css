@@ -1,0 +1,22 @@
+
+ .layui-table thead tr, .layui-table-click, .layui-table-header, .layui-table-hover, .layui-table-mend, .layui-table-patch, .layui-table-tool, .layui-table[lay-even] tr:nth-child(even){background-color:#def5fe;}
+.layui-table tbody tr:hover{background-color:#bcebfd !important;}
+.layui-table, .layui-table-view{margin-top:20px;}
+.layui-table td, .layui-table th{font-size:12px;text-align: center;}
+select{border:none;font-size:12px;color:#666;background:none;cursor:pointer;}
+td input{border:none;width:100%;text-align: center;background:none;font-size:12px;color:#666;}
+.affirm{cursor:pointer;color:#0893c9;position: relative;padding:0 5px;}
+.affirm span{display: block;width:24px;height:2px;background:#0893c9;position:absolute;bottom:0;left:50%;margin-left:-12px;}
+#test1{float:right;margin-top:20px;}
+/*#right_box{padding-bottom:50px;}*/
+/*弹窗*/
+/*.tc{width:800px;padding:30px 60px 50px 60px;background:#fff;position:fixed;top:50%;left:50%;margin-left:-460px;z-index:9992;margin-top:-260px;border-radius:5px;display: none;}
+.tc_title{text-align:center;font-size:18px;color:#333;margin-bottom:50px;}
+.tc_l{float:left;width:300px;}
+.tc_r{float:right;width:300px;}
+.tc_l p,.tc_r p{font-size:16px;color:#555;}
+.tc input,.tc select{width:300px;height:40px;text-align: center;border:1px solid #ddd;border-radius:3px;margin-top:20px;}
+.tc textarea{width:96%;height:80px;border:1px solid #ddd;border-radius:3px;margin-top:20px;padding:2%;resize:none;}
+.tc select option{text-align:center;}
+.ok{width:100px;height:40px;background:#29ade1;color:#fff;border-radius:20px;margin-top:20px;text-align: center;line-height:40px;cursor:pointer;letter-spacing: 2px;}
+.close_1{display: block;position:absolute;right:20px;top:20px;width:20px;cursor:pointer;}*/
