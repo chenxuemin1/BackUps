@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldxht.Dao.repertory.Repertory_Dao">
+
+    <!--搜索所有-->
+    <select id="sel_findall" resultType="ldxht.Pojo.repertory.Repertory_table">
+          SELECT id clothes_id,clothes_type,number clothes_number FROM db_clothes_table
+    </select>
+    <!--根据时间搜索库存-->
+    <select id="sel_t" resultType="ldxht.Pojo.repertory.Repertory_table">
+--           SELECT id clothes_id,clothes_type,number clothes_number
+--           FROM db_clothes_table
+--           WHERE
+          SELECT id clothes_id,clothes_type,number clothes_number FROM db_clothes_table
+    </select>
+
+    <!--根据衣服类别搜索-->
+    <select id="sel_type" resultType="ldxht.Pojo.repertory.Repertory_table">
+          SELECT id clothes_id,clothes_type,number clothes_number
+          FROM db_clothes_table
+          WHERE clothes_type=#{clothes_type}
+    </select>
+</mapper>

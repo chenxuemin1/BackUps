@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldxht.Dao.repertory.Report_Dao">
+    <!--搜索所有-->
+    <select id="sel_findall" resultType="ldxht.Pojo.repertory.Report_table">
+          SELECT clothes_type type,buyer name,buyer_phone phone_number,buy_time ,remarks remark,weight,buy_price price
+          FROM db_clear_table
+    </select>
+    <!--根据时间搜索报表-->
+    <select id="sel_t" resultType="ldxht.Pojo.repertory.Report_table">
+       <![CDATA[
+          SELECT clothes_type type,buyer name,buyer_phone phone_number,buy_time ,remarks remark,weight,buy_price price
+          FROM db_clear_table
+          WHERE buy_time>=#{start} AND buy_time<=#{end}
+        ]]>
+    </select>
+    <!--根据衣服种类-->
+    <select id="sel_type" resultType="ldxht.Pojo.repertory.Report_table">
+          SELECT clothes_type type,buyer name,buyer_phone phone_number,buy_time ,remarks remark,weight,buy_price price
+          FROM db_clear_table
+          WHERE clothes_type=#{clothes_type}
+    </select>
+</mapper>

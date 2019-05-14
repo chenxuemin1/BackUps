@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldxht.Dao.coupon.Give_Dao">
+    <!--根据昵称搜索-->
+    <select id="sel_n" resultType="ldxht.Pojo.coupon.Give_table">
+        SELECT id coupon_id,sender_name user_nickname,donation_time TIME,weight,express_number
+        FROM db_back_clothes_table
+        WHERE sender_name=#{name}
+    </select>
+
+    <!--根据订单编号搜索-->
+    <select id="sel_d" resultType="ldxht.Pojo.coupon.Give_table">
+        SELECT id coupon_id,sender_name user_nickname,donation_time TIME,weight,express_number
+        FROM db_back_clothes_table
+        WHERE express_number=#{express_number}
+    </select>
+
+    <!--根据昵称、订单编号搜索-->
+    <select id="sel_n_d" resultType="ldxht.Pojo.coupon.Give_table">
+        SELECT id coupon_id,sender_name user_nickname,donation_time TIME,weight,express_number
+        FROM db_back_clothes_table
+        WHERE sender_name=#{name} AND express_number=#{express_number}
+    </select>
+
+    <!--搜索所有-->
+    <select id="sel_findall" resultType="ldxht.Pojo.coupon.Give_table">
+          SELECT id coupon_id,sender_name user_nickname,donation_time TIME,weight,express_number FROM db_back_clothes_table
+    </select>
+</mapper>

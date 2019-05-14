@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldxht.Dao.coupon.Off_Dao">
+    <!--根据优惠券券号搜索-->
+    <select id="sel_q" resultType="ldxht.Pojo.coupon.Off_table">
+        SELECT c.coupon_card_id coupon_cord_id,c.money money,c.coupon_date valid_date,c.condition ,b.user_nickname nickname,c.coupon_create_time get_time,c.coupon_state use_state
+        FROM db_user_table b,db_coupon_table c
+        WHERE b.openid=c.openid AND c.coupon_card_id=#{coupon_card_id}
+    </select>
+
+    <!--根据优惠券状态搜索-->
+    <select id="sel_z" resultType="ldxht.Pojo.coupon.Off_table">
+        SELECT c.coupon_card_id coupon_cord_id,c.money money,c.coupon_date valid_date,c.condition ,b.user_nickname nickname,c.coupon_create_time get_time,c.coupon_state use_state
+        FROM db_user_table b,db_coupon_table c
+        WHERE b.openid=c.openid AND c.coupon_state=#{state}
+    </select>
+
+    <!--根据券号、状态搜索-->
+    <select id="sel_q_z" resultType="ldxht.Pojo.coupon.Off_table">
+        SELECT c.coupon_card_id coupon_cord_id,c.money money,c.coupon_date valid_date,c.condition ,b.user_nickname nickname,c.coupon_create_time get_time,c.coupon_state use_state
+        FROM db_user_table b,db_coupon_table c
+        WHERE b.openid=c.openid AND c.coupon_card_id=#{coupon_card_id} AND c.coupon_state=#{state}
+    </select>
+
+    <!--搜索所有-->
+    <select id="sel_findall" resultType="ldxht.Pojo.coupon.Off_table">
+        SELECT c.coupon_card_id coupon_cord_id,c.money money,c.coupon_date valid_date,c.condition ,b.user_nickname nickname,c.coupon_create_time get_time,c.coupon_state use_state
+        FROM db_user_table b,db_coupon_table c
+        WHERE b.openid=c.openid
+    </select>
+
+    <!--手动核销-->
+    <update id="edit_hx">
+        UPDATE TABLE db_coupon_table
+        SET coupon_state=1
+        WHERE id=#{coupon_id}
+    </update>
+</mapper>

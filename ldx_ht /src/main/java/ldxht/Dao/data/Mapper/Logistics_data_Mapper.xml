@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldxht.Dao.data.Logistics_data_Dao">
+
+    <!--搜索所有-->
+    <select id="sel_findall" resultType="ldxht.Pojo.data.Logistics_data_table">
+
+    </select>
+    <!--根据时间搜索-->
+    <select id="sel" resultType="ldxht.Pojo.data.Logistics_data_table">
+
+    </select>
+
+    <!--查询今天-->
+    <select id="sel_today" resultType="ldxht.Pojo.data.Logistics_data_table">
+
+    </select>
+
+    <!--查询昨天-->
+    <select id="sel_yester" resultType="ldxht.Pojo.data.Location_data_table">
+
+    </select>
+
+    <!--查询最近七天-->
+    <select id="sel_7day" resultType="ldxht.Pojo.data.Location_data_table">
+
+    </select>
+
+    <!--查询最近三十天-->
+    <select id="sel_30day" resultType="ldxht.Pojo.data.Logistics_data_table">
+
+    </select>
+
+    <!--查询一年-->
+    <select id="sel_years" resultType="ldxht.Pojo.data.Logistics_data_table">
+
+    </select>
+</mapper>

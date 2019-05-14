@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldxht.Dao.say.Say_Dao">
+
+    <!--删除-->
+    <delete id="del">
+          DELETE FROM db_say_table WHERE id=#{id}
+    </delete>
+
+    <!--拉黑-->
+    <update id="sel_lh">
+          UPDATE TABLE db_say_table
+          SET new_state=0
+          WHERE id=#{id}
+    </update>
+
+    <!--恢复-->
+    <update id="edit_hf">
+          UPDATE TABLE db_say_table
+          SET new_state=1
+          WHERE id=#{id}
+    </update>
+
+    <!--根据昵称和内容搜索-->
+    <select id="sel_n_m" resultType="ldxht.Pojo.say.Say_table">
+          SELECT b.user_nickname nickanme,s.public_time time,s.say_message message,s.photo_loca1 photo_loca1,s.photo_loca2 photo_loca2,s.photo_loca3 photo_loca3
+          FROM db_say_table s,db_user_table b
+          WHERE s.public_man_openid=b.openid AND b.user_nickname=#{nickname} AND s.say_message=#{message}
+    </select>
+
+    <!--根据昵称搜索-->
+    <select id="sel_n" resultType="ldxht.Pojo.say.Say_table">
+          SELECT b.user_nickname nickanme,s.public_time time,s.say_message message,s.photo_loca1 photo_loca1,s.photo_loca2 photo_loca2,s.photo_loca3 photo_loca3
+          FROM db_say_table s,db_user_table b
+          WHERE s.public_man_openid=b.openid AND b.user_nickname=#{nickname}
+    </select>
+
+    <!--根据内容搜索-->
+    <select id="sel_m" resultType="ldxht.Pojo.say.Say_table">
+          SELECT b.user_nickname nickanme,s.public_time time,s.say_message message,s.photo_loca1 photo_loca1,s.photo_loca2 photo_loca2,s.photo_loca3 photo_loca3
+          FROM db_say_table s,db_user_table b
+          WHERE s.public_man_openid=b.openid AND s.say_message=#{message}
+    </select>
+
+    <!--搜索所有-->
+    <select id="sel_findall" resultType="ldxht.Pojo.say.Say_table">
+          SELECT b.user_nickname nickanme,s.public_time time,s.say_message message,s.photo_loca1 photo_loca1,s.photo_loca2 photo_loca2,s.photo_loca3 photo_loca3
+          FROM db_say_table s,db_user_table b
+          WHERE s.public_man_openid=b.openid
+    </select>
+</mapper>

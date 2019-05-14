@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldxht.Dao.data.User_info_Dao">
+    <!--搜索所有-->
+    <select id="sel_findall" resultType="ldxht.Pojo.data.User_info_table">
+          SELECT user_nickname nickname,user_name name,
+                 user_telephone phone_number,donation_number back_number,
+                 coupon_number coupon_number,location location,
+                 donation_weight weight,user_from user_from
+          FROM db_user_table
+    </select>
+    <!--根据用户名搜索-->
+    <select id="sel_y" resultType="ldxht.Pojo.data.User_info_table">
+          SELECT user_nickname nickname,user_name name,
+                 user_telephone phone_number,donation_number back_number,
+                 coupon_number coupon_number,location location,
+                 donation_weight weight,user_from user_from
+          FROM db_user_table
+          WHERE user_name=#{name}
+    </select>
+
+    <!--根据手机号码搜索-->
+    <select id="sel_s" resultType="ldxht.Pojo.data.User_info_table">
+          SELECT user_nickname nickname,user_name name,
+                 user_telephone phone_number,donation_number back_number,
+                 coupon_number coupon_number,location location,
+                 donation_weight weight,user_from user_from
+          FROM db_user_table
+          WHERE user_telephone=#{phone_number}
+    </select>
+
+    <!--根据用户名、手机号码搜索-->
+    <select id="sel_y_s" resultType="ldxht.Pojo.data.User_info_table">
+          SELECT user_nickname nickname,user_name name,
+                 user_telephone phone_number,donation_number back_number,
+                 coupon_number coupon_number,location location,
+                 donation_weight weight,user_from user_from
+          FROM db_user_table
+          WHERE user_name=#{name} AND user_telephone=#{phone_number}
+    </select>
+
+</mapper>

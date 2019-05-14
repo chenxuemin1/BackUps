@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldxht.Dao.repertory.Clear_Dao">
+    <!--清算表-->
+    <select id="sel_findall" resultType="ldxht.Pojo.repertory.Clear_table">
+          SELECT clothes_type type,buyer name,buyer_phone phone_number,buy_time ,remarks remark,weight,buy_price price
+          FROM db_clear_table
+    </select>
+
+    <!--添加数据-->
+    <insert id="add">
+        INSERT INTO db_clear_table(clothes_type,weight,buyer,buyer_phone,buy_time,buy_price,remarks)
+        VALUES (#{type},#{weight},#{name},#{phone_number},#{buy_time},#{price},#{remark})
+    </insert>
+</mapper>

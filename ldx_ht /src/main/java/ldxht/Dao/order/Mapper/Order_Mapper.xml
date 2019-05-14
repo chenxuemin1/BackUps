@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldxht.Dao.order.Order_Dao">
+
+    <!--添加-->
+    <insert id="add">
+
+    </insert>
+
+    <!--根据用户名、手机号码搜索-->
+    <select id="sel_y_s" resultType="ldxht.Pojo.order.Order_table">
+          SELECT u.user_name name,u.user_nickname nickname,u.user_telephone phone_number,b.id order_id,b.donation_time TIME,s.now_state state
+          FROM db_user_table u,db_subsidy_table s,db_back_clothes_table b
+          WHERE u.openid=b.openid AND b.express_number=s.express_number AND u.user_name=#{name} AND u.user_telephone=#{phone_number}
+    </select>
+
+    <!--根据用户名搜索-->
+    <select id="sel_y" resultType="ldxht.Pojo.order.Order_table">
+          SELECT u.user_name name,u.user_nickname nickname,u.user_telephone phone_number,b.id order_id,b.donation_time TIME,s.now_state state
+          FROM db_user_table u,db_subsidy_table s,db_back_clothes_table b
+          WHERE u.openid=b.openid AND b.express_number=s.express_number AND u.user_name=#{name}
+    </select>
+
+    <!--根据手机号码搜索-->
+    <select id="sel_s" resultType="ldxht.Pojo.order.Order_table">
+          SELECT u.user_name name,u.user_nickname nickname,u.user_telephone phone_number,b.id order_id,b.donation_time TIME,s.now_state state
+          FROM db_user_table u,db_subsidy_table s,db_back_clothes_table b
+          WHERE u.openid=b.openid AND b.express_number=s.express_number AND u.user_telephone=#{phone_number}
+    </select>
+
+    <!--搜索所有-->
+    <select id="sel_findall" resultType="ldxht.Pojo.order.Order_table">
+          SELECT u.user_name name,u.user_nickname nickname,u.user_telephone phone_number,b.id order_id,b.donation_time TIME,s.now_state state
+          FROM db_user_table u,db_subsidy_table s,db_back_clothes_table b
+          WHERE u.openid=b.openid AND b.express_number=s.express_number
+    </select>
+
+    <!--搜索指定订单-->
+    <select id="sel_d" resultType="ldxht.Pojo.order.Order_table">
+          SELECT b.id order_id,b.express_number express_number,b.confirm_weight comfirm_weight
+          FROM db_user_table u,db_subsidy_table s,db_back_clothes_table b
+          WHERE u.openid=b.openid AND b.express_number=s.express_number AND id=#{order_id}
+    </select>
+
+    <!--添加备注-->
+    <update id="edit_remark">
+        UPDATE TABLE db_back_clothes_table
+        SET remark_server=#{remark_server}
+        WHERE id=#{order_id}
+    </update>
+</mapper>

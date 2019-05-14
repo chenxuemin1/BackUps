@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldxht.Dao.statement.Statement_Dao">
+
+    <!--查询所有-->
+    <select id="sel_findall" resultType="ldxht.Pojo.statement.Statement_table">
+          SELECT type cost_type,money FROM db_money_table
+    </select>
+    <!--根据时间搜索-->
+    <select id="sel_t" resultType="ldxht.Pojo.statement.Statement_table">
+          SELECT type cost_type,money FROM db_money_table
+    </select>
+
+    <!--根据费用类型查询-->
+    <select id="sel_type" resultType="ldxht.Pojo.statement.Statement_table">
+          SELECT type cost_type,money FROM db_money_table
+    </select>
+</mapper>
