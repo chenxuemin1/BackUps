@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+
+	<!-- 解决在jQuery中使用ajax响应中文的乱码 -->
+	<bean
+			class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean
+						class="org.springframework.http.converter.StringHttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>text/plain;charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 在spring MVC中，只用管理控制器  -->
+	<context:component-scan base-package="ldxht.Controller">
+		<!-- 只管理控制器, -->
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+	</context:component-scan>
+
+
+	<!-- jsp配置视图解析器 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+
+	<!-- html视图解析器 必须先配置freemarkerConfig,注意html是没有prefix前缀属性的-->
+	<!--
+	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath">
+			<value>/WEB-INF/views/</value>
+		</property>
+	</bean>
+	<bean id="htmlviewResolver"
+		  class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="suffix" value=".html" />
+		<property name="order" value="0"></property>
+		<property name="contentType" value="text/html;charset=UTF-8"></property>
+	</bean>
+	-->
+
+	<!-- springMVC为文件上传提供了直接的支持，springMVC上下文不会自动装载文件上传的支持类，需要手动装配 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8"></property>
+		<property name="maxUploadSize" value="5242280"></property>
+	</bean>
+	
+	<!--
+		 引入spring的类型转换服务工厂类
+		用于装配类型转换器，包含自定义的类型转换器
+	 -->
+
+	<!-- springMVC拦截器配置 -->
+	<!--<mvc:interceptors>-->
+		<!--<mvc:interceptor>-->
+			<!--&lt;!&ndash; 拦截的请求路径 &ndash;&gt;-->
+			<!--<mvc:mapping path="/**"/>-->
+			<!--&lt;!&ndash; 对应的拦截器 &ndash;&gt;-->
+			<!--<bean class="ldx.Interceptor.HandlerInterceptor1">-->
+				<!--&lt;!&ndash; 给拦截器传参 &ndash;&gt;-->
+				<!--<property name="name" value="拦截器名称" />-->
+			<!--</bean>-->
+		<!--</mvc:interceptor>-->
+	<!--</mvc:interceptors>-->
+
+	<!-- 添加springMVC注解支持 -->
+	<mvc:annotation-driven />
+<!-- 	<mvc:annotation-driven conversion-service="conversionService"/> -->
+	
+	<!-- SpringMVC 找不到对应路径时，自动匹配默认servlet，可以处理静态资源 -->
+	<mvc:default-servlet-handler/>
+
+	<!-- 配置/resources/目录下的文件不监听，通常这个目录存放css、图片、javascript等 -->
+	<mvc:resources location="/resource/" mapping="/resources/**" />
+	
+	<!-- 指定根路径的默认控制器路径，相当于web.xml中的欢迎页，配置该路径后，欢迎页将被忽略 -->
+	<!--<mvc:view-controller path="/" view-name="forward:../index"/>-->
+</beans>
