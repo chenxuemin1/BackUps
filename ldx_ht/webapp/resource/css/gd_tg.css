@@ -1,0 +1,16 @@
+#content{width:86%;margin:0 auto;padding-top:50px;}
+.s_title{font-size:14px;color:#727171;padding-left:20px;}
+.hint{font-size:16px;color:#727171;margin-top:50px;border:1px solid #9fa0a0;padding:30px 0;background:#def5fe;line-height:26px;letter-spacing:2px;}
+.hint img{margin:0px 20px 0px 30px;vertical-align: middle; }
+.ipt_box{margin-top:30px;}
+.ipt{width:74%;float:left;border:1px solid #9fa0a0;height:90px;line-height:90px;}
+.btn{width:25%;float:right;border:1px solid #9fa0a0;height:90px;line-height:90px;color:#fff;background:#0893c9;text-align: center;cursor:pointer;font-size:18px;letter-spacing:2px;}
+.btn:hover{opacity: 0.8;}
+.ipt input{border:none;width:90%;padding-left:10%;outline:none;height:85px;font-size:18px;color:#666;}
+.tc{width:640px;height:340px;border-radius:5px;overflow: hidden;position:absolute;top:0;left:0;bottom:0;right:0;margin:auto;z-index:9998;color:#fff;display: none;}
+.tc_1{height:240px;line-height:240px;text-align: center;font-size:18px;background:#29ade1;}
+.tc_2{height:100px;background:#fff;position:relative;}
+.yes{width:140px;height:40px;text-align: center;line-height:40px;border-radius:5px;background:#29ade1;position:absolute;top:0;left:0;bottom:0;right:0;margin:auto;cursor:pointer;}
+.yes:hover{opacity: 0.8;}
+.close{position:absolute;top:10px;right:20px;padding:5px;cursor:pointer;}
+
